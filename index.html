@@ -6,17 +6,19 @@
     <title>BlueOwl Technologies</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f4f4f4;
             text-align: center;
+            color: #333;
         }
         header {
             background-color: #1e3a8a;
             color: white;
             padding: 20px;
-            font-size: 24px;
+            font-size: 28px;
+            font-weight: bold;
         }
         section {
             padding: 50px;
@@ -24,18 +26,44 @@
         .services, .contact {
             background-color: white;
             margin: 20px auto;
-            padding: 20px;
+            padding: 30px;
             width: 80%;
             border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        .services:hover, .contact:hover {
+            transform: scale(1.03);
+        }
+        h2, h3 {
+            color: #1e3a8a;
+        }
+        .services p, .contact p {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+        .btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #1e3a8a;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 18px;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background-color: #163b75;
         }
         footer {
             background-color: #1e3a8a;
             color: white;
-            padding: 10px;
+            padding: 15px;
             position: relative;
             bottom: 0;
             width: 100%;
+            font-size: 14px;
         }
     </style>
 </head>
@@ -53,11 +81,13 @@
         <p>✔ API Development & Integration</p>
         <p>✔ Cloud & Microservices Solutions</p>
         <p>✔ Performance Optimization & Security</p>
+        <a href="#" class="btn">Learn More</a>
     </div>
     <div class="contact">
         <h3>Contact Us</h3>
         <p>Email: contact@blueowl-tech.com</p>
-        <p>LinkedIn: <a href="#">linkedin.com/company/blueowltech</a></p>
+        <p>LinkedIn: <a href="#" style="color: #1e3a8a; text-decoration: none;">linkedin.com/company/blueowltech</a></p>
+        <a href="mailto:contact@blueowl-tech.com" class="btn">Email Us</a>
     </div>
     <footer>
         &copy; 2025 BlueOwl Technologies. All rights reserved.
