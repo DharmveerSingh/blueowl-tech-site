@@ -9,8 +9,12 @@
 		<title>BlueOwl Technologies</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;700&family=Source+Sans+Pro:wght@300;600&display=swap" rel="stylesheet">
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<link rel="icon" type="image/png" href="images/BlueOwlLogo.png" />
 	</head>
 	<body class="is-preload">
 
@@ -19,7 +23,10 @@
 
 				<!-- Header -->
 					<header id="header" class="alt">
-						<h1><a href="index.html">BlueOwl Technologies</a></h1>
+						<div style="display: flex; align-items: center; gap: 15px;">
+							<div class="logo-small" style="width: 50px; height: 50px; border-radius: 100%; border: solid 2px rgba(255, 255, 255, 0.125); background-image: url('images/BlueOwlLogo.png'); background-size: contain; background-repeat: no-repeat; background-position: center;"></div>
+							<h1><a href="index.html">BlueOwl Technologies</a></h1>
+						</div>
 						<nav>
 							<a href="#menu">Menu</a>
 						</nav>
@@ -43,7 +50,7 @@
 				<!-- Banner -->
 					<section id="banner">
 						<div class="inner">
-							<div class="logo"><span class="icon fa-gem"></span></div>
+							<div class="logo"><div class="icon" style="background-image: url('images/BlueOwlLogo.png'); background-size: contain; background-repeat: no-repeat; background-position: center;"></div></div>
 							<h2>BlueOwl Technologies</h2>
 							<p>Coding with Wisdom + Innovating with Style</p>
 						</div>
@@ -53,29 +60,29 @@
 					<section id="wrapper">
 
 						<!-- One -->
-							<<!--section id="one" class="wrapper spotlight style1">
+							<section id="one" class="wrapper spotlight style1">
 								<div class="inner">
 									<a href="#" class="image"><img src="images/pic01.jpg" alt="" /></a>
 									<div class="content">
 										<h2 class="major">Custom Websites & Applications</h2>
 										<p>We build modern, scalable, and high-performance websites & applications.</p>
-										<ul>
+										<ul style="list-style: none;">
 											<li>✔ Business Websites – Sleek, responsive, and SEO-friendly.</li>
-											<li>✔ E-commerce Platforms – Secure & scalable online stores.</li>
+											A<li>✔ E-commerce Platforms – Secure & scalable online stores.</li>
 											<li>✔ Web & Mobile Applications – Custom-built solutions for startups & enterprises.</li>
 										</ul>
 									</div>
 								</div>
 							</section>
 
-						&lt;!&ndash; Two &ndash;&gt;
+
 							<section id="two" class="wrapper alt spotlight style2">
 								<div class="inner">
 									<a href="#" class="image"><img src="images/pic02.jpg" alt="" /></a>
 									<div class="content">
 										<h2 class="major">API Development & Integration</h2>
 										<p>Seamless system connectivity with powerful APIs to enhance business efficiency.</p>
-										<ul>
+										<ul  style="list-style: none;">
 											<li>✔ Custom API Development – Secure & scalable APIs for web & mobile apps.</li>
 											<li>✔ Third-party API Integration – Payment gateways, CRM, ERP & cloud services.</li>
 											<li>✔ API Performance Optimization – High-speed & reliable API solutions.</li>
@@ -84,14 +91,14 @@
 								</div>
 							</section>
 
-						&lt;!&ndash; Three &ndash;&gt;
+
 							<section id="three" class="wrapper spotlight style3">
 								<div class="inner">
 									<a href="#" class="image"><img src="images/pic03.jpg" alt="" /></a>
 									<div class="content">
 										<h2 class="major">Cloud & Microservices Solutions</h2>
 										<p>Future-ready cloud solutions for scalability & efficiency.</p>
-										<ul>
+										<ul  style="list-style: none;">
 											<li>✔ Cloud Migration & Deployment – AWS, Azure & GCP solutions.</li>
 											<li>✔ Microservices Architecture – Scalable & modular development.</li>
 											<li>✔ Serverless Computing – Cost-effective & high-performance applications.</li>
@@ -99,7 +106,7 @@
 									</div>
 								</div>
 							</section>
--->
+
 						<!-- Four -->
 							<section id="four" class="wrapper alt style1">
 								<div class="inner">
@@ -115,20 +122,20 @@
 											<a href="#" class="image"><img src="images/pic05.jpg" alt="" /></a>
 											<h3 class="major">Predictive Analytics</h3>
 											<p>AI-powered insights to enhance decision-making.</p>
-											<!--<a href="#" class="special">Learn more</a>-->
+										<!--	<a href="#" class="special">Learn more</a>-->
 										</article>
-										<article>
+<!--										<article>
 											<a href="#" class="image"><img src="images/pic06.jpg" alt="" /></a>
 											<h3 class="major">Image & Speech Recognition</h3>
 											<p>AI-based computer vision & voice solutions.</p>
-											<!--<a href="#" class="special">Learn more</a>-->
+											&lt;!&ndash;<a href="#" class="special">Learn more</a>&ndash;&gt;
 										</article>
 										<article>
 											<a href="#" class="image"><img src="images/pic07.jpg" alt="" /></a>
 											<h3 class="major">Automation & NLP</h3>
 											<p>Automating tasks using AI-driven natural language processing.</p>
-											<!--<a href="#" class="special">Learn more</a>-->
-										</article>
+											&lt;!&ndash;<a href="#" class="special">Learn more</a>&ndash;&gt;
+										</article>-->
 									</section>
 									<!--<ul class="actions">
 										<li><a href="#" class="button">Browse All</a></li>
@@ -143,36 +150,39 @@
 						<div class="inner">
 							<h2 class="major">Get in touch</h2>
 
-							<!--<form method="post" action="#">
-								<div class="fields">
-									<div class="field">
-										<label for="name">Name</label>
-										<input type="text" name="name" id="name" />
-									</div>
-									<div class="field">
-										<label for="email">Email</label>
-										<input type="email" name="email" id="email" />
-									</div>
-									<div class="field">
-										<label for="message">Message</label>
-										<textarea name="message" id="message" rows="4"></textarea>
-									</div>
-								</div>
-								<ul class="actions">
-									<li><input type="submit" value="Send Message" /></li>
-								</ul>
-							</form>-->
+                                                       <!-- <form method="post" action="#">
+                                                            <div class="fields">
+                                                                <div class="field">
+                                                                    <label for="name">Name</label>
+                                                                    <input type="text" name="name" id="name" />
+                                                                </div>
+                                                                <div class="field">
+                                                                    <label for="email">Email</label>
+                                                                    <input type="email" name="email" id="email" />
+                                                                </div>
+                                                                <div class="field">
+                                                                    <label for="message">Message</label>
+                                                                    <textarea name="message" id="message" rows="4"></textarea>
+                                                                </div>
+                                                            </div>
+                                                            <ul class="actions">
+                                                                <li><input type="submit" value="Send Message" /></li>
+                                                            </ul>
+                                                        </form>-->
 							<ul class="contact">
 								<li class="icon solid fa-home">
 									BlueOwl Technologies<br />
-									Kirti Nagar<br />
-									New Delhi, India 110015
+									New Delhi<br />
+									India 110015
 								</li>
 								<li class="icon solid fa-phone">(+91) 9717896679</li>
-								<li class="icon solid fa-envelope"><a href="#">contact@blueowl-tech.com</a></li>
-								<li class="icon brands fa-linkedin"><a href="https://www.linkedin.com/company/blueowl-technologies">https://www.linkedin.com/company/blueowl-technologies</a></li>
-								<!--<li class="icon brands fa-facebook-f"><a href="#">facebook.com/untitled-tld</a></li>-->
-								<li class="icon brands fa-instagram"><a href="www.instagram.com/blueowl_tech">blueowl_tech</a></li>
+								<li class="icon solid fa-envelope"><a href="mailto:connect@blueowl-tech.com?subject=Inquiry%20from%20Website&body=Hi%20BlueOwl%20Technologies,">
+									connect@blueowl-tech.com
+								</a>
+								</li>
+								<li class="icon brands fa-linkedin"><a href="https://www.linkedin.com/company/blueowl-technologies">LinkedIn</a></li>
+								<!--<li class="icon brands fa-facebook-f"><a href="#">facebook.com/untitled-tld</a></li>&ndash;&gt;-->
+								<li class="icon brands fa-instagram"><a href="www.instagram.com/blueowl_tech">Instagram</a></li>
 							</ul>
 							<ul class="copyright">
 								<li>&copy; BlueOwl Technologies. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
@@ -190,5 +200,7 @@
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
 
+		<div align="right"><script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/1450262/t/3"></script></div>
 	</body>
+
 </html>
