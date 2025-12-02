@@ -18,6 +18,12 @@
     </script>
 
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             background: linear-gradient(135deg, #1a1a2e, #16213e);
             display: flex;
@@ -25,12 +31,13 @@
             align-items: center;
             min-height: 100vh;
             padding: 20px;
-            margin: 0;
+            font-family: "Source Sans Pro", Helvetica, sans-serif;
         }
 
         .popup-wrapper {
             width: 100%;
             max-width: 550px;
+            padding-top: 40px;
         }
 
         .popup-wrapper h2 {
@@ -154,7 +161,7 @@
 
         button[type="submit"] {
             width: 100%;
-            padding: 14px 20px;
+            padding: 12px 20px;
             background: linear-gradient(135deg, #4cc3ff, #1274ff);
             border: none;
             border-radius: 6px;
@@ -167,6 +174,11 @@
             transition: all 0.3s ease;
             margin-top: 20px;
             font-family: Raleway, Helvetica, sans-serif;
+            line-height: 1.4;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         button[type="submit"]:hover {

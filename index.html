@@ -15,6 +15,16 @@
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 		<link rel="icon" type="image/png" href="images/BlueOwlLogo.png" />
+		<style>
+			body.popup-open #header {
+				pointer-events: none;
+				opacity: 0.5;
+			}
+			body.popup-open #menu {
+				pointer-events: none;
+				opacity: 0.5;
+			}
+		</style>
 	</head>
 	<body class="is-preload">
 
@@ -192,6 +202,14 @@
 
 			</div>
 
+		<!-- Modal Popup Container -->
+		<div id="popupModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); z-index: 9999; align-items: center; justify-content: center; padding: 20px;">
+			<div style="position: relative; width: 100%; max-width: 600px; height: auto; max-height: 85vh; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3); padding: 0;">
+				<button onclick="closePopup()" style="position: absolute; top: 15px; right: 15px; width: 40px; height: 40px; background: rgba(76, 195, 255, 0.3); border: none; border-radius: 50%; color: #4cc3ff; font-size: 32px; cursor: pointer; z-index: 10001; transition: all 0.3s ease; line-height: 0.8; display: flex; align-items: center; justify-content: center; padding: 0; margin: 0; font-weight: 300; text-align: center; font-family: Arial, sans-serif; transform: translate(0, -1px);" onmouseover="this.style.background='rgba(76, 195, 255, 0.6)'; this.style.transform='rotate(90deg) translate(0, -1px)';" onmouseout="this.style.background='rgba(76, 195, 255, 0.3)'; this.style.transform='translate(0, -1px)';">&times;</button>
+				<iframe id="popupIframe" src="" style="width: 100%; height: 85vh; border: none; display: block; border-radius: 12px;"></iframe>
+			</div>
+		</div>
+
 		<!-- Scripts -->
 			<script src="assets/js/jquery.min.js"></script>
 			<script src="assets/js/jquery.scrollex.min.js"></script>
@@ -202,13 +220,36 @@
 
 		<script>
 			function openPopup() {
-				// Open popup.html in a centered popup window
-				var width = 600;
-				var height = 700;
-				var left = (screen.width - width) / 2;
-				var top = (screen.height - height) / 2;
-				window.open('popup.html', 'ServicePopup', 'width=' + width + ',height=' + height + ',left=' + left + ',top=' + top + ',resizable=yes,scrollbars=yes');
+				// Load popup.html in iframe modal
+				document.getElementById("popupIframe").src = "popup.html";
+				document.getElementById("popupModal").style.display = "flex";
+				// Prevent background scroll and disable header
+				document.body.style.overflow = "hidden";
+				document.body.classList.add("popup-open");
 			}
+
+			function closePopup() {
+				// Close the modal
+				document.getElementById("popupModal").style.display = "none";
+				document.getElementById("popupIframe").src = "";
+				// Allow background scroll and enable header
+				document.body.style.overflow = "auto";
+				document.body.classList.remove("popup-open");
+			}
+
+			// Close popup when clicking outside the modal
+			document.getElementById("popupModal").addEventListener("click", function(event) {
+				if (event.target === this) {
+					closePopup();
+				}
+			});
+
+			// Close popup with Escape key
+			document.addEventListener("keydown", function(event) {
+				if (event.key === "Escape") {
+					closePopup();
+				}
+			});
 		</script>
 
 		<div align="right"><script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/1450262/t/3"></script></div>
