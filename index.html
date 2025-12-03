@@ -15,6 +15,11 @@
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 		<link rel="icon" type="image/png" href="images/BlueOwlLogo.png" />
+		<!-- EmailJS CDN -->
+		<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+		<script>
+			emailjs.init("-tJZcVnsYCHbCJdey");
+		</script>
 		<style>
 			body.popup-open #header {
 				pointer-events: none;
@@ -23,6 +28,26 @@
 			body.popup-open #menu {
 				pointer-events: none;
 				opacity: 0.5;
+			}
+			.success-message {
+				background: rgba(76, 195, 255, 0.2);
+				border: 1px solid #4cc3ff;
+				color: #4cc3ff;
+				padding: 15px;
+				border-radius: 6px;
+				margin-bottom: 20px;
+				display: none;
+				text-align: center;
+				font-size: 0.9em;
+			}
+			.success-message.show {
+				display: block;
+			}
+			.error-message {
+				color: #ff6b6b;
+				font-size: 0.85em;
+				display: none;
+				margin-top: 5px;
 			}
 		</style>
 	</head>
@@ -162,25 +187,37 @@
 						<div class="inner">
 							<h2 class="major">Get in touch</h2>
 
-                                                       <!-- <form method="post" action="#">
+							<div class="success-message" id="footerSuccessMessage">✓ Thank you! We have received your message and will get back to you soon.</div>
+
+                                                        <form id="footerContactForm" method="post" action="#">
                                                             <div class="fields">
                                                                 <div class="field">
-                                                                    <label for="name">Name</label>
-                                                                    <input type="text" name="name" id="name" />
+                                                                    <label for="footer_name">Name</label>
+                                                                    <input type="text" name="name" id="footer_name" placeholder="Enter your name here" required />
                                                                 </div>
                                                                 <div class="field">
-                                                                    <label for="email">Email</label>
-                                                                    <input type="email" name="email" id="email" />
+                                                                    <label for="footer_email">Email</label>
+                                                                    <input type="email" name="email" id="footer_email" placeholder="example@domain.com" required />
+                                                                    <span class="error-message" id="footerEmailError">Please enter a valid email address</span>
                                                                 </div>
                                                                 <div class="field">
-                                                                    <label for="message">Message</label>
-                                                                    <textarea name="message" id="message" rows="4"></textarea>
+                                                                    <label for="footer_phone">Phone Number</label>
+                                                                    <input type="tel" name="phone" id="footer_phone" placeholder="+91 XXXXX XXXXX" required />
+                                                                    <span class="error-message" id="footerPhoneError">Please enter a valid phone number (min 10 digits)</span>
+                                                                </div>
+                                                                <div class="field">
+                                                                    <label for="footer_message">Message</label>
+                                                                    <textarea name="message" id="footer_message" placeholder="Enter your query here..." rows="4" required></textarea>
+                                                                </div>
+                                                                <div class="field">
+                                                                    <label>Enter Captcha: <span id="footerCaptchaText" style="font-weight: bold; color: #4cc3ff; letter-spacing: 2px;"></span></label>
+                                                                    <input type="text" id="footer_captcha_input" placeholder="Enter the code above" required />
                                                                 </div>
                                                             </div>
                                                             <ul class="actions">
                                                                 <li><input type="submit" value="Send Message" /></li>
                                                             </ul>
-                                                        </form>-->
+                                                        </form>
 							<ul class="contact">
 								<li class="icon solid fa-home">
 									BlueOwl Technologies<br />
@@ -221,6 +258,141 @@
 			<script src="assets/js/main.js"></script>
 
 		<script>
+			// Generate CAPTCHA
+			function generateFooterCaptcha() {
+				let c = Math.random().toString(36).substring(2, 7).toUpperCase();
+				document.getElementById("footerCaptchaText").innerText = c;
+				return c;
+			}
+
+			// Initialize CAPTCHA when page loads
+			let footer_captcha_value = generateFooterCaptcha();
+
+			// Email validation function
+			function validateEmail(email) {
+				const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+				return emailRegex.test(email);
+			}
+
+			// Phone validation function
+			function validatePhone(phone) {
+				const phoneRegex = /^[0-9\s\-\+\(\)]{10,}$/;
+				const digitsOnly = phone.replace(/\D/g, '');
+				return phoneRegex.test(phone) && digitsOnly.length >= 10;
+			}
+
+			// Real-time email validation
+			document.getElementById("footer_email").addEventListener("blur", function() {
+				const email = this.value.trim();
+				const emailError = document.getElementById("footerEmailError");
+
+				if (email && !validateEmail(email)) {
+					emailError.style.display = "block";
+				} else {
+					emailError.style.display = "none";
+				}
+			});
+
+			// Real-time phone validation
+			document.getElementById("footer_phone").addEventListener("blur", function() {
+				const phone = this.value.trim();
+				const phoneError = document.getElementById("footerPhoneError");
+
+				if (phone && !validatePhone(phone)) {
+					phoneError.style.display = "block";
+				} else {
+					phoneError.style.display = "none";
+				}
+			});
+
+			// Handle form submission
+			document.getElementById("footerContactForm").addEventListener("submit", function(event) {
+				event.preventDefault();
+
+				// Validate name
+				const name = document.getElementById("footer_name").value.trim();
+				if (!name) {
+					alert("Please enter your name");
+					return;
+				}
+				if (name.length < 3) {
+					alert("Name must be at least 3 characters long");
+					return;
+				}
+
+				// Validate email
+				const email = document.getElementById("footer_email").value.trim();
+				if (!email) {
+					alert("Please enter your email address");
+					return;
+				}
+				if (!validateEmail(email)) {
+					alert("Please enter a valid email address (e.g., example@domain.com)");
+					document.getElementById("footer_email").focus();
+					return;
+				}
+
+				// Validate phone
+				const phone = document.getElementById("footer_phone").value.trim();
+				if (!phone) {
+					alert("Please enter your phone number");
+					return;
+				}
+				if (!validatePhone(phone)) {
+					alert("Please enter a valid phone number with at least 10 digits");
+					document.getElementById("footer_phone").focus();
+					return;
+				}
+
+				// Validate message
+				const message = document.getElementById("footer_message").value.trim();
+				if (!message) {
+					alert("Please enter a message");
+					return;
+				}
+				if (message.length < 10) {
+					alert("Please provide at least 10 characters in your message");
+					return;
+				}
+
+				// Validate CAPTCHA
+				if (document.getElementById("footer_captcha_input").value.toUpperCase() !== footer_captcha_value) {
+					alert("Incorrect Captcha! Please try again.");
+					footer_captcha_value = generateFooterCaptcha();
+					document.getElementById("footer_captcha_input").value = "";
+					return;
+				}
+
+				// Prepare data for EmailJS
+				const data = {
+					name: name,
+					email: email,
+					phone: phone,
+					services: "",
+					details: message
+				};
+
+				// Send email using EmailJS (using the same template as popup)
+				emailjs.send("service_kot9qr8", "template_dlzaoom", data)
+					.then(() => {
+						// Show success message
+						document.getElementById("footerSuccessMessage").classList.add("show");
+
+						// Reset form
+						document.getElementById("footerContactForm").reset();
+						footer_captcha_value = generateFooterCaptcha();
+
+						// Hide success message after 5 seconds
+						setTimeout(() => {
+							document.getElementById("footerSuccessMessage").classList.remove("show");
+						}, 5000);
+					})
+					.catch(err => {
+						console.log(err);
+						alert("Failed to send message. Please try again later or contact us directly at connect@blueowl-tech.com");
+					});
+			});
+
 			function openPopup() {
 				// Load popup.html in iframe modal
 				document.getElementById("popupIframe").src = "popup.html";
