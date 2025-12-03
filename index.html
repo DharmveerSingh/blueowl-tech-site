@@ -15,6 +15,41 @@
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 		<link rel="icon" type="image/png" href="images/BlueOwlLogo.png" />
+		<!-- EmailJS CDN -->
+		<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+		<script>
+			emailjs.init("-tJZcVnsYCHbCJdey");
+		</script>
+		<style>
+			body.popup-open #header {
+				pointer-events: none;
+				opacity: 0.5;
+			}
+			body.popup-open #menu {
+				pointer-events: none;
+				opacity: 0.5;
+			}
+			.success-message {
+				background: rgba(76, 195, 255, 0.2);
+				border: 1px solid #4cc3ff;
+				color: #4cc3ff;
+				padding: 15px;
+				border-radius: 6px;
+				margin-bottom: 20px;
+				display: none;
+				text-align: center;
+				font-size: 0.9em;
+			}
+			.success-message.show {
+				display: block;
+			}
+			.error-message {
+				color: #ff6b6b;
+				font-size: 0.85em;
+				display: none;
+				margin-top: 5px;
+			}
+		</style>
 	</head>
 	<body class="is-preload">
 
@@ -28,20 +63,18 @@
 							<h1><a href="index.html">BlueOwl Technologies</a></h1>
 						</div>
 						<nav>
-							<a href="#menu">Menu</a>
+							<a href="#menu">Dashboard</a>
 						</nav>
 					</header>
 
 				<!-- Menu -->
 					<nav id="menu">
 						<div class="inner">
-							<h2>Menu</h2>
+							<h2>Dashboard</h2>
 							<ul class="links">
 								<li><a href="index.html">Home</a></li>
-								<!--<li><a href="generic.html">Generic</a></li>-->
-								<!--<li><a href="elements.html">Elements</a></li>-->
-								<!--<li><a href="#">Log In</a></li>
-								<li><a href="#">Sign Up</a></li>-->
+								<!--<li><a href="generic.html">Generic</a></li>
+								<li><a href="elements.html">Elements</a></li>-->
 							</ul>
 							<a href="#" class="close">Close</a>
 						</div>
@@ -71,6 +104,7 @@
 											A<li>✔ E-commerce Platforms – Secure & scalable online stores.</li>
 											<li>✔ Web & Mobile Applications – Custom-built solutions for startups & enterprises.</li>
 										</ul>
+										<a href="#" class="special" onclick="openPopup(); return false;">Know More</a>
 									</div>
 								</div>
 							</section>
@@ -87,6 +121,7 @@
 											<li>✔ Third-party API Integration – Payment gateways, CRM, ERP & cloud services.</li>
 											<li>✔ API Performance Optimization – High-speed & reliable API solutions.</li>
 										</ul>
+										<a href="#" class="special" onclick="openPopup(); return false;">Know More</a>
 									</div>
 								</div>
 							</section>
@@ -103,6 +138,7 @@
 											<li>✔ Microservices Architecture – Scalable & modular development.</li>
 											<li>✔ Serverless Computing – Cost-effective & high-performance applications.</li>
 										</ul>
+										<a href="#" class="special" onclick="openPopup(); return false;">Know More</a>
 									</div>
 								</div>
 							</section>
@@ -117,12 +153,13 @@
 											<a href="#" class="image"><img src="images/AI-Image.png" alt="" /></a>
 											<h3 class="major">AI Customer Chatbot</h3>
 											<p>Intelligent chatbots for customer support & automation.</p>
+											<a href="#" class="special" onclick="openPopup(); return false;">Know More</a>
 										</article>
 										<article>
 											<a href="#" class="image"><img src="images/dataanalytics.png" alt="" /></a>
 											<h3 class="major">Predictive Analytics</h3>
 											<p>AI-powered insights to enhance decision-making.</p>
-										<!--	<a href="#" class="special">Learn more</a>-->
+											<a href="#" class="special" onclick="openPopup(); return false;">Know More</a>
 										</article>
 <!--										<article>
 											<a href="#" class="image"><img src="images/pic06.jpg" alt="" /></a>
@@ -150,25 +187,37 @@
 						<div class="inner">
 							<h2 class="major">Get in touch</h2>
 
-                                                       <!-- <form method="post" action="#">
+							<div class="success-message" id="footerSuccessMessage">✓ Thank you! We have received your message and will get back to you soon.</div>
+
+                                                        <form id="footerContactForm" method="post" action="#">
                                                             <div class="fields">
                                                                 <div class="field">
-                                                                    <label for="name">Name</label>
-                                                                    <input type="text" name="name" id="name" />
+                                                                    <label for="footer_name">Name</label>
+                                                                    <input type="text" name="name" id="footer_name" required />
                                                                 </div>
                                                                 <div class="field">
-                                                                    <label for="email">Email</label>
-                                                                    <input type="email" name="email" id="email" />
+                                                                    <label for="footer_email">Email</label>
+                                                                    <input type="email" name="email" id="footer_email" placeholder="example@domain.com" required />
+                                                                    <span class="error-message" id="footerEmailError">Please enter a valid email address</span>
                                                                 </div>
                                                                 <div class="field">
-                                                                    <label for="message">Message</label>
-                                                                    <textarea name="message" id="message" rows="4"></textarea>
+                                                                    <label for="footer_phone">Phone Number</label>
+                                                                    <input type="tel" name="phone" id="footer_phone" placeholder="+91 XXXXX XXXXX" required />
+                                                                    <span class="error-message" id="footerPhoneError">Please enter a valid phone number (min 10 digits)</span>
+                                                                </div>
+                                                                <div class="field">
+                                                                    <label for="footer_message">Message</label>
+                                                                    <textarea name="message" id="footer_message" placeholder="Enter your query here..." rows="4" required></textarea>
+                                                                </div>
+                                                                <div class="field">
+                                                                    <label>Enter Captcha: <span id="footerCaptchaText" style="font-weight: bold; color: #4cc3ff; letter-spacing: 2px;"></span></label>
+                                                                    <input type="text" id="footer_captcha_input" placeholder="Enter the code above" required />
                                                                 </div>
                                                             </div>
                                                             <ul class="actions">
                                                                 <li><input type="submit" value="Send Message" /></li>
                                                             </ul>
-                                                        </form>-->
+                                                        </form>
 							<ul class="contact">
 								<li class="icon solid fa-home">
 									BlueOwl Technologies<br />
@@ -192,6 +241,14 @@
 
 			</div>
 
+		<!-- Modal Popup Container -->
+		<div id="popupModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); z-index: 9999; align-items: center; justify-content: center; padding: 20px;">
+			<div style="position: relative; width: 100%; max-width: 600px; height: auto; max-height: 85vh; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3); padding: 0;">
+				<button onclick="closePopup()" style="position: absolute; top: 15px; right: 15px; width: 40px; height: 40px; background: rgba(76, 195, 255, 0.3); border: none; border-radius: 50%; color: #4cc3ff; font-size: 32px; cursor: pointer; z-index: 10001; transition: all 0.3s ease; line-height: 0.8; display: flex; align-items: center; justify-content: center; padding: 0; margin: 0; font-weight: 300; text-align: center; font-family: Arial, sans-serif; transform: translate(0, -1px);" onmouseover="this.style.background='rgba(76, 195, 255, 0.6)'; this.style.transform='rotate(90deg) translate(0, -1px)';" onmouseout="this.style.background='rgba(76, 195, 255, 0.3)'; this.style.transform='translate(0, -1px)';">&times;</button>
+				<iframe id="popupIframe" src="" style="width: 100%; height: 85vh; border: none; display: block; border-radius: 12px;"></iframe>
+			</div>
+		</div>
+
 		<!-- Scripts -->
 			<script src="assets/js/jquery.min.js"></script>
 			<script src="assets/js/jquery.scrollex.min.js"></script>
@@ -200,7 +257,176 @@
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
 
-		<div align="right"><script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/1450262/t/3"></script></div>
+		<script>
+			// Generate CAPTCHA
+			function generateFooterCaptcha() {
+				let c = Math.random().toString(36).substring(2, 7).toUpperCase();
+				document.getElementById("footerCaptchaText").innerText = c;
+				return c;
+			}
+
+			// Initialize CAPTCHA when page loads
+			let footer_captcha_value = generateFooterCaptcha();
+
+			// Email validation function
+			function validateEmail(email) {
+				const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+				return emailRegex.test(email);
+			}
+
+			// Phone validation function
+			function validatePhone(phone) {
+				const phoneRegex = /^[0-9\s\-\+\(\)]{10,}$/;
+				const digitsOnly = phone.replace(/\D/g, '');
+				return phoneRegex.test(phone) && digitsOnly.length >= 10;
+			}
+
+			// Real-time email validation
+			document.getElementById("footer_email").addEventListener("blur", function() {
+				const email = this.value.trim();
+				const emailError = document.getElementById("footerEmailError");
+
+				if (email && !validateEmail(email)) {
+					emailError.style.display = "block";
+				} else {
+					emailError.style.display = "none";
+				}
+			});
+
+			// Real-time phone validation
+			document.getElementById("footer_phone").addEventListener("blur", function() {
+				const phone = this.value.trim();
+				const phoneError = document.getElementById("footerPhoneError");
+
+				if (phone && !validatePhone(phone)) {
+					phoneError.style.display = "block";
+				} else {
+					phoneError.style.display = "none";
+				}
+			});
+
+			// Handle form submission
+			document.getElementById("footerContactForm").addEventListener("submit", function(event) {
+				event.preventDefault();
+
+				// Validate name
+				const name = document.getElementById("footer_name").value.trim();
+				if (!name) {
+					alert("Please enter your name");
+					return;
+				}
+				if (name.length < 3) {
+					alert("Name must be at least 3 characters long");
+					return;
+				}
+
+				// Validate email
+				const email = document.getElementById("footer_email").value.trim();
+				if (!email) {
+					alert("Please enter your email address");
+					return;
+				}
+				if (!validateEmail(email)) {
+					alert("Please enter a valid email address (e.g., example@domain.com)");
+					document.getElementById("footer_email").focus();
+					return;
+				}
+
+				// Validate phone
+				const phone = document.getElementById("footer_phone").value.trim();
+				if (!phone) {
+					alert("Please enter your phone number");
+					return;
+				}
+				if (!validatePhone(phone)) {
+					alert("Please enter a valid phone number with at least 10 digits");
+					document.getElementById("footer_phone").focus();
+					return;
+				}
+
+				// Validate message
+				const message = document.getElementById("footer_message").value.trim();
+				if (!message) {
+					alert("Please enter a message");
+					return;
+				}
+				if (message.length < 10) {
+					alert("Please provide at least 10 characters in your message");
+					return;
+				}
+
+				// Validate CAPTCHA
+				if (document.getElementById("footer_captcha_input").value.toUpperCase() !== footer_captcha_value) {
+					alert("Incorrect Captcha! Please try again.");
+					footer_captcha_value = generateFooterCaptcha();
+					document.getElementById("footer_captcha_input").value = "";
+					return;
+				}
+
+				// Prepare data for EmailJS
+				const data = {
+					name: name,
+					email: email,
+					phone: phone,
+					services: "",
+					details: message
+				};
+
+				// Send email using EmailJS (using the same template as popup)
+				emailjs.send("service_kot9qr8", "template_dlzaoom", data)
+					.then(() => {
+						// Show success message
+						document.getElementById("footerSuccessMessage").classList.add("show");
+
+						// Reset form
+						document.getElementById("footerContactForm").reset();
+						footer_captcha_value = generateFooterCaptcha();
+
+						// Hide success message after 5 seconds
+						setTimeout(() => {
+							document.getElementById("footerSuccessMessage").classList.remove("show");
+						}, 5000);
+					})
+					.catch(err => {
+						console.log(err);
+						alert("Failed to send message. Please try again later or contact us directly at connect@blueowl-tech.com");
+					});
+			});
+
+			function openPopup() {
+				// Load popup.html in iframe modal
+				document.getElementById("popupIframe").src = "popup.html";
+				document.getElementById("popupModal").style.display = "flex";
+				// Prevent background scroll and disable header
+				document.body.style.overflow = "hidden";
+				document.body.classList.add("popup-open");
+			}
+
+			function closePopup() {
+				// Close the modal
+				document.getElementById("popupModal").style.display = "none";
+				document.getElementById("popupIframe").src = "";
+				// Allow background scroll and enable header
+				document.body.style.overflow = "auto";
+				document.body.classList.remove("popup-open");
+			}
+
+			// Close popup when clicking outside the modal
+			document.getElementById("popupModal").addEventListener("click", function(event) {
+				if (event.target === this) {
+					closePopup();
+				}
+			});
+
+			// Close popup with Escape key
+			document.addEventListener("keydown", function(event) {
+				if (event.key === "Escape") {
+					closePopup();
+				}
+			});
+		</script>
+
+		<!--<div align="right"><script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/1450262/t/3"></script></div>-->
 	</body>
 
 </html>
